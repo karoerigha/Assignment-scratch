@@ -1,0 +1,39 @@
+body {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  margin: 20px;
+  background-image: url(teacher.jpg);
+  background-size:cover ;
+  background-repeat: no-repeat;
+}
+
+
+form {
+  margin: 0 auto;
+  width: 250px;
+  padding: 0px 0px 0px 80px;
+}
+form h2 {
+  color: white;
+}
+
+label {
+  display: block;
+  color: white;
+}
+
+input {
+  width: 100%;
+  padding: 10px;
+  margin: 5px 0;
+  border: 1px solid #ccc;
+}
+
+input[type="submit"] {
+  background-color: #007BFF;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  margin: 6px 21px;
+  width: 230px;
+}

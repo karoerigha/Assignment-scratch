@@ -1,0 +1,188 @@
+<!-- enhanced_dashboard.html -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>User Dashboard - Eridan College</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f4f4f4;
+      }
+
+      header {
+        background-color: #007bff;
+        color: #fff;
+        padding: 15px;
+        text-align: right;
+      }
+
+      h1 {
+        margin: 0;
+      }
+
+      section {
+        margin: 20px;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .toggle-btn {
+        cursor: pointer;
+        background-color: #007bff;
+        color: #fff;
+        padding: 10px;
+        border: none;
+        border-radius: 5px;
+        margin-bottom: 10px;
+      }
+
+      .toggle-btn:hover {
+        background-color: #0056b3;
+      }
+
+      /* .hidden {
+       display: none;
+      } */
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+      }
+
+      th,
+      td {
+        border: 1px solid #ddd;
+        padding: 12px;
+        text-align: left;
+      }
+
+      th {
+        background-color: #007bff;
+        color: #fff;
+      }
+
+      select {
+        padding: 10px;
+        margin-bottom: 10px;
+      }
+
+      a {
+        text-decoration: none;
+        color: #007bff;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Eridan College</h1>
+      <p>Welcome, John Doe! (<a href="../Portal.html">Logout</a>)</p>
+    </header>
+
+    <section id="school-info">
+      <h2>About Eridan College</h2>
+      <p>
+        Eridan College is a leading institution dedicated to academic excellence
+        and the holistic development of students. Our diverse faculty and
+        vibrant campus provide a nurturing environment for learning and growth.
+      </p>
+    </section>
+
+    <section id="faculties" class="hidden">
+      <h2>Faculties</h2>
+      <select id="facultyDropdown" onchange="showDepartments()">
+        <option value="" disabled selected>Select a Faculty</option>
+        <option value="LAW">Faculty of Law (LAW)</option>
+        <option value="LSC">Faculty of Life Sciences (LSC)</option>
+        <option value="MED">Faculty of Medicine (MED)</option>
+        <option value="MGS">Faculty of Management Sciences (MGS)</option>
+        <option value="PSC">Faculty of Physical Sciences (PSC)</option>
+        <option value="SSC">Faculty of Social Sciences (SSC)</option>
+      </select>
+
+      <div id="departmentContainer" class="hidden">
+        <h3>Departments</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Department Code</th>
+              <th>Department Name</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Departments will be populated dynamically based on faculty selection -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="newsletter" class="hidden">
+      <h2>Newsletter</h2>
+      <p>Subscribe to our newsletter to receive updates and announcements.</p>
+      <!-- Newsletter form will be added here -->
+    </section>
+
+    <section id="profile-link" class="hidden">
+      <h2>Access Your User Profile</h2>
+      <p>Enter your student ID to access your personalized user profile.</p>
+      <input type="text" id="studentIdInput" placeholder="Enter Student ID" />
+      <button onclick="redirectToProfile()">Access Profile</button>
+    </section>
+
+    <script>
+      function showDepartments() {
+        const facultyDropdown = document.getElementById("facultyDropdown");
+        const departmentContainer = document.getElementById(
+          "departmentContainer"
+        );
+        const departments = {
+          LAW: ["LAW101", "LAW102"],
+          LSC: ["LSC201", "LSC202"],
+          MED: ["MED301", "MED302"],
+          MGS: ["MGS401", "MGS402"],
+          PSC: ["PSC501", "PSC502"],
+          SSC: ["SSC601", "SSC602"],
+        };
+
+        if (facultyDropdown.value !== "") {
+          departmentContainer.classList.remove("hidden");
+          const departmentTableBody = document.querySelector(
+            "#departmentContainer tbody"
+          );
+          departmentTableBody.innerHTML = "";
+
+          for (const departmentCode of departments[facultyDropdown.value]) {
+            const row = document.createElement("tr");
+            row.innerHTML = `
+            <td>${departmentCode}</td>
+            <td>${getDepartmentName(departmentCode)}</td>
+          `;
+            departmentTableBody.appendChild(row);
+          }
+        } else {
+          departmentContainer.classList.add("hidden");
+        }
+      }
+
+      function getDepartmentName(departmentCode) {
+        // You can implement a logic to get the department name based on the code
+        return "Department " + departmentCode.slice(-2);
+      }
+
+      function redirectToProfile() {
+        const studentIdInput = document.getElementById("studentIdInput");
+        const studentId = studentIdInput.value.trim();
+        if (studentId !== "") {
+          // Redirect to the user profile page with the student ID
+          window.location.href = `user_profile.php?studentId=${studentId}`;
+        }
+      }
+    </script>
+  </body>
+</html>
