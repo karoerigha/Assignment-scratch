@@ -5,19 +5,27 @@ session_start();
 include('db_connection.php');
 // Retrieve the student ID from the query parameter
 $studentId = isset($_GET['studentId']) ? $_GET['studentId'] : '';
-
-//  code to display the user profile based on $studentId
-
-
-// Check if the user is logged in
-if (!isset($_SESSION['UserID'])) {
+/*  first Check if the user is logged in
+if (empty($studentId)) {
     // Redirect to login page if not logged in
     header("Location: Portal.html");
     exit();
+} */
+// Function to get UserID based on MatNumber
+function getUserId($matNumber) {
+    global $conn; // Assuming $conn is your database connection
+    $sql = "SELECT UserID FROM Users WHERE MatNumber = '$matNumber'";
+    $result = $conn->query($sql);
+    if ($result && $result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        return $row['UserID'];
+    } else {
+        // Return some default or error value
+        return -1;
+    }
 }
-
 // Retrieve logged-in user's data from the database
-$userID = $_SESSION['UserID'];
+$userID = getUserId($studentId);
 $sql = "SELECT Users.FirstName, Users.LastName, Users.MatNumber, Courses.CourseName, Grades.Grade
         FROM Users
         JOIN Grades ON Users.UserID = Grades.UserID
@@ -40,7 +48,7 @@ if ($result) {
     // Display courses and grades
     echo "<h3>Your Courses and Grades</h3>";
     echo "<ul>";
-    //start the loop from the beginning of the result set
+    // Start the loop from the beginning of the result set
     $result->data_seek(0);
     while ($row = $result->fetch_assoc()) {
         $courseName = $row['CourseName'];
@@ -49,23 +57,21 @@ if ($result) {
     }
     echo "</ul>";
 
-    //  print transcript (you may implement this using JavaScript)
+    // Display the transcript section
+    echo "<section id='transcript' class='hidden'>";
+    echo "<h2>Transcript</h2>";
+    echo "<p>This is the transcript for $firstName $lastName</p>";
+    echo "</section>";
+
+    //  print transcript 
     echo "<button onclick='printTranscript()'>Print Transcript</button>";
+
+    // Close the result set
+    $result->close();
 } else {
     // Handle query error
     echo "Error: " . $sql . "<br>" . $conn->error;
 }
-
 // Close the database connection
 $conn->close();
-?>
-
-<!-- Include the JavaScript code for printing transcript -->
-<script>
-    function printTranscript() {
-        // Implement the printing logic using JavaScript
-        alert('Printing transcript...');
-    }
-</script>
-
 ?>

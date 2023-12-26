@@ -1,3 +1,9 @@
+<?php
+// This is a simple PHP file for testing
+echo "Hello, this is a test!";
+?>
+
+
 <!-- db_connection.php -->
 
 <?php

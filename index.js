@@ -36,6 +36,10 @@ function showDepartments() {
     //  implement a logic to get the department name based on the code
     return "Department " + departmentCode.slice(-2);
   }
+  function printTranscript() {
+    // Implement the printing logic 
+    alert('Printing transcript...');
+}
 
   function redirectToProfile() {
     const studentIdInput = document.getElementById("studentIdInput");
@@ -43,7 +47,7 @@ function showDepartments() {
 
     if (studentId !== "") {
         // Redirect to the user profile page with the student ID
-        window.location.href = `/Assignment-scratch/userprofile.php?studentId=${studentId}`;
+        window.location.href = `http://localhost/Assignment-scratch/userprofile.php?studentId=${studentId}`;
     } else {
         //  where the student ID is empty, it'll then print this sir.
         alert("Please enter a valid student ID");
