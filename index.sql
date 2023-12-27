@@ -29,7 +29,7 @@ CREATE TABLE IF NOT EXISTS Grades (
 -- Insert Sample Users
 INSERT INTO Users (FirstName, LastName, MatNumber, Username, Password) VALUES
 ('Erigha', 'Daniel', 'psc2008146', 'Erigha', 'blessed'),
-('John', 'Doe', 'edu3065125', 'john', 'password2');
+('John', 'doe', 'edu3065125', 'john', 'password2');
 
 -- Insert Sample Courses
 INSERT INTO Courses (CourseName) VALUES

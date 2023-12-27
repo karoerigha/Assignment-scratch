@@ -6,7 +6,7 @@ document.getElementById("loginForm").addEventListener("submit", function(event) 
   var username = document.getElementById("username").value;
   var password = document.getElementById("password").value;
 
-  // Validate credentials (this is a simple example)
+  // Validate credentials 
   if (username === "Erigha" && password === "blessed") {
     // Redirect to the index.html page
     window.location.href = "index.html";
